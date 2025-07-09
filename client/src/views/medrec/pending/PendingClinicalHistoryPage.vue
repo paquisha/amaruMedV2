@@ -90,7 +90,7 @@
                 color="grey darken-2"
                 icon
               >
-                <v-icon small> fa-notes-medical</v-icon>
+                <v-icon small> fa-eye</v-icon>
               </own-btn>
 
               <own-btn

@@ -228,7 +228,7 @@
       <template v-slot:item.actions="{ item }">
         <div style="width: 100%; min-width: 120px">
           <own-btn @click="showLog(item)" tooltip="Historial" color="grey darken-2" icon>
-            <v-icon small> fa-notes-medical</v-icon>
+            <v-icon small>fa-eye</v-icon>
           </own-btn>
 
           <own-btn

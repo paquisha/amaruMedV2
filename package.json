@@ -24,7 +24,7 @@
     "build:client": "cd client && npm run build",
     "serve:client": "cd client && npm run serve",
     "serve:api": "npm run clean && npm run build && node -r source-map-support/register .",
-    "serve": "npm run serve:api & npm run serve:client",
+    "serve": "npm run serve:api",
     "prestart": "npm run clean && npm run build && npm run build:client",
     "preinstall": "cd client && npm install",
     "start": "node -r source-map-support/register .",
