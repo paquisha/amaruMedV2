@@ -4,7 +4,7 @@
 // License text available at https://opensource.org/licenses/MIT
 
 module.exports = {
-  outputDir: process.env.OUTPUT || '../public/client',
+  outputDir: process.env.OUTPUT || 'dist',
   transpileDependencies: ['vuetify'],
   devServer: {
     proxy: {
