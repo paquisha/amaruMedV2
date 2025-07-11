@@ -1,29 +1,26 @@
-FROM node:16.20
+# Etapa 1: Build del frontend
+FROM node:16 as build-stage
 
-# Crear carpeta de trabajo
 WORKDIR /app
 
-# Copiar archivos de dependencias y compilación
-COPY package.json yarn.lock ./
-COPY tsconfig*.json ./
-
-# Instalar dependencias
-RUN yarn install
-
-# Verificar estructura antes de copiar código
-RUN echo "=== Antes de COPY . . ===" && ls -l /app
-
-# Copiar el resto del código fuente
+COPY package*.json ./
+RUN npm install
 COPY . .
+RUN npm run build
 
-# Verificar que el código fuente está presente
-RUN echo "=== Después de COPY . . ===" && ls -l /app && ls -l /app/src
+# Etapa 2: Nginx para servir frontend
+FROM nginx:alpine
 
-# Ejecutar build y mostrar resultado
-RUN echo "=== Ejecutando build ===" && yarn build && echo "=== Archivos en dist/ ===" && ls -l dist
+# Argumento de backend dinámico
+ARG API_BASE_URL
+ENV API_BASE_URL=${API_BASE_URL}
 
-# Exponer puerto
-EXPOSE 3000
+# Copiar build generado
+COPY --from=build-stage /app/dist /usr/share/nginx/html
 
-# Comando para iniciar la app
-CMD ["node", "-r", "source-map-support/register", "dist/index.js"]
+# Copiar plantilla nginx y reemplazar la variable
+COPY nginx.template.conf /etc/nginx/templates/nginx.conf.template
+RUN envsubst '${API_BASE_URL}' < /etc/nginx/templates/nginx.conf.template > /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

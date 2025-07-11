@@ -1,11 +1,14 @@
 version: '3.8'
 
 services:
-  api:
-    build: .
-    container_name: amarumed-api
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        API_BASE_URL: http://192.168.100.5:3000
+    container_name: amarumed-front
     ports:
-      - "3000:3000"
-    env_file:                 # ← carga todas las variables
-      - .env
-
+      - "8080:80"
+    environment:
+      - PROXY=http://192.168.100.5:3000
