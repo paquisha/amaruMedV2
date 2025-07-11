@@ -18,7 +18,8 @@ export const AMARUMEDPGC = {
   port: process.env.AMARUMED_PGC_PORT ?? 5432,
   user: process.env.AMARUMED_PGC_USER ?? 'postgres',
   password: process.env.AMARUMED_PGC_PASSWORD ?? '1234567890',
-  database: process.env.AMARUMED_PGC_DATABASE ?? 'amarumed'
+  database: process.env.AMARUMED_PGC_DATABASE ?? 'amarumed',
+  ssl:true
 }
 
 export const TOKEN = {
