@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: amarumed-api
+    ports:
+      - "3000:3000"
+    env_file:                 # ← carga todas las variables
+      - .env
+

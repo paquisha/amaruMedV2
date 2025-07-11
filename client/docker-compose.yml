@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: amarumed-front
+    ports:
+      - "8080:80"
+    environment:
+      - PROXY=http://amarumed-api:3000
